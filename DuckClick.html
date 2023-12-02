@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+		#clicker{
+			position: absolute;
+			transition: 400ms;
+		}
+		
+		body{
+			background-image:url(360_F_282104243_AOYP22ztDiOcQ4cAlpnxzDwFgIlGF2fG.jpg);
+			background-size: cover;
+			background-repeat: no-repeat;
+			transition: 200ms;
+		}
+	</style>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title> 
+	</head>
+
+
+<body >
+
+		
+		<h2 align="center" style="font-size: 50px; color:#31572c; font-family: Brush Script MT"> DuckClick </h2>
+		<h1 align="center" style="color:#ca6702; font-family: cambria">SCORE<p id = "score">0</p></h1>
+
+		<h4 align="left" style="color:#e76f51; font-family: cambria">Time Remaining: <span id="time"></span > seconds</h4>
+		<h3 align="left" style="color:#bc6c25; font-family: cambria">Lives: <span id="lives">3</span></h3>
+
+		<img align = "left" src = "red-pixel-heart-xfl.png" id="firstLife" width="61px" height = "50px">
+		<img align = "left" src = "red-pixel-heart-xfl.png" id="secondLife" width="61px" height = "50px">
+		<img align = "left" src = "red-pixel-heart-xfl.png" id="thirdLife" width="61px" height = "50px">
+
+		<img align = "center" src = "giphy.gif" id="clicker" width="100px" height = "100px">
+
+	
+<script> 
+	/*".querySelector" a method used for searching and returning the very first 
+		element within the document that matches the given selector.*/
+	var targetDOM = document.querySelector("#clicker") 
+	var timerDOM = document.querySelector("#time")
+	var scoreDOM = document.querySelector("#score")
+	var livesDOM = document.querySelector("#lives")
+	var score = 0;
+	var countdown = 30
+	var finish = false
+	var lives = 3
+	let firstImage = document.getElementById("firstLife")
+    let secondImage = document.getElementById("secondLife")
+    let thirdImage = document.getElementById("thirdLife")
+
+	scoreDOM.innerHTML = score;
+	timerDOM.innerHTML = countdown;
+	livesDOM.innerHTML = lives;
+
+	var timer = setInterval(() => {
+
+	  countdown--;
+	  timerDOM.innerHTML = countdown
+
+	  //if condition, as the time reaches 0
+	  if(countdown <= 0) {
+	    clearInterval(timer)
+	    //variable 'finish', when the value is true
+	    finish = true
+	    alerts();
+	  }
+
+	}, 1000)
+
+	/*another method of creating function, instead of using 'function' syntax*/
+	//let. allows you to declare variables that are limited to the scope of a block statement, or expression on which it is used
+	let alerts = () => {
+					//arrow function. The left part denotes the input of a function and the right part the output of that function.
+	  alert("Game Over Your score is "+score);
+	  
+	}
+
+	let changePos = () => {
+
+	  var x = Math.floor (Math.random() * 600);
+	  var y = Math.floor (Math.random() * 1000);
+
+	  // console.log({x,y})
+
+	  targetDOM.style.top = x+"px";
+	  targetDOM.style.left = y+"px";
+
+	}
+
+	changePos();
+	/*allows you to set up functions to be called when a specified event happens*/
+	document.addEventListener('click', (event) => {
+
+	  if(finish) return;
+	  								//returns the event's path which is an array of the objects on which listeners will be invoked
+	  const withinBoundaries = event.composedPath().includes(targetDOM)
+	  												//method returns true if a string contains a specified string
+	  if (withinBoundaries) {
+	    //console.log("within target")
+	    score++;
+	    scoreDOM.innerHTML = score
+	    changePos()
+	  } else {
+	    //console.log("outside target")
+	  	
+	    lives--
+	    livesDOM.innerHTML = lives
+
+        
+  } 
+  		if (lives == 2){
+  			firstImage.remove()
+  		}
+  		if (lives == 1){
+  			secondImage.remove()
+  		}
+  		if (lives == 0){
+  			thirdImage.remove()
+  		}
+
+	    if(lives <= 0) {
+
+	      clearInterval(timer)
+	      finish = true
+	      alerts()
+	    }
+	   
+	})
+
+</script>
+</body>
+</html>
