@@ -1,34 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-		#clicker{
-			position: absolute;
-			transition: 400ms;
-		}
-		
-		body{
-			background-image:url(360_F_282104243_AOYP22ztDiOcQ4cAlpnxzDwFgIlGF2fG.jpg);
-			background-size: cover;
-			background-repeat: no-repeat;
-			transition: 200ms;
-		}
-	</style>
-
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="style.css">
 		<title></title> 
-	</head>
-
+</head>
 
 <body >
 
 		
 		<h2 align="center" style="font-size: 50px; color:#31572c; font-family: Brush Script MT"> DuckClick </h2>
-		<h1 align="center" style="color:#ca6702; font-family: cambria">SCORE<p id = "score">0</p></h1>
+		<h1 align="center" style="color:#ca6702; font-family: cambria">SCORE<p id = "score"></p></h1>
 
 		<h4 align="left" style="color:#e76f51; font-family: cambria">Time Remaining: <span id="time"></span > seconds</h4>
-		<h3 align="left" style="color:#bc6c25; font-family: cambria">Lives: <span id="lives">3</span></h3>
+		<h3 align="left" style="color:#bc6c25; font-family: cambria">Lives: <span id="lives"></span></h3>
 
 		<img align = "left" src = "red-pixel-heart-xfl.png" id="firstLife" width="61px" height = "50px">
 		<img align = "left" src = "red-pixel-heart-xfl.png" id="secondLife" width="61px" height = "50px">
@@ -36,18 +22,24 @@
 
 		<img align = "center" src = "giphy.gif" id="clicker" width="100px" height = "100px">
 
+		<div class="button" id="restart">
+			<a href="#" style="--changeCLR:#a7c957" onclick="restartG()"><span>RESTART</span><i></i></a>
+		</div>
+
 	
 <script> 
 	/*".querySelector" a method used for searching and returning the very first 
 		element within the document that matches the given selector.*/
-	var targetDOM = document.querySelector("#clicker") 
-	var timerDOM = document.querySelector("#time")
+	var targetDOM = document.querySelector("#clicker")
 	var scoreDOM = document.querySelector("#score")
+	var timerDOM = document.querySelector("#time")
 	var livesDOM = document.querySelector("#lives")
+
 	var score = 0;
 	var countdown = 30
-	var finish = false
 	var lives = 3
+	var finish = false
+
 	let firstImage = document.getElementById("firstLife")
     let secondImage = document.getElementById("secondLife")
     let thirdImage = document.getElementById("thirdLife")
@@ -57,7 +49,7 @@
 	livesDOM.innerHTML = lives;
 
 	var timer = setInterval(() => {
-
+		
 	  countdown--;
 	  timerDOM.innerHTML = countdown
 
@@ -76,7 +68,6 @@
 	let alerts = () => {
 					//arrow function. The left part denotes the input of a function and the right part the output of that function.
 	  alert("Game Over Your score is "+score);
-	  
 	}
 
 	let changePos = () => {
@@ -111,26 +102,31 @@
 	    livesDOM.innerHTML = lives
 
         
-  } 
-  		if (lives == 2){
-  			firstImage.remove()
-  		}
-  		if (lives == 1){
-  			secondImage.remove()
-  		}
-  		if (lives == 0){
-  			thirdImage.remove()
-  		}
+  		} 
+			if (lives == 2){
+				firstImage.remove()
+			}
+			if (lives == 1){
+				secondImage.remove()
+			}
+			if (lives == 0){
+				thirdImage.remove()
+			}
 
-	    if(lives <= 0) {
+			if(lives <= 0) {
 
-	      clearInterval(timer)
-	      finish = true
-	      alerts()
-	    }
+			clearInterval(timer)
+			finish = true
+			alerts()
+			}
 	   
 	})
 
+	function restartG(){
+		window.location.reload();
+	}
+
 </script>
+
 </body>
 </html>
